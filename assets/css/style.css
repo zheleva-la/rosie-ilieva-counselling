@@ -1,0 +1,329 @@
+/* Rosie Ilieva Counselling
+   Plain CSS, no build step. Colours and type live in the tokens below. */
+
+:root {
+  --mist: #f2f5f7;        /* page background */
+  --paper: #ffffff;       /* raised surfaces */
+  --ink: #1f3a3d;         /* text, deep teal */
+  --ink-soft: #4a6266;    /* secondary text */
+  --heather: #74587a;     /* accent: links, buttons */
+  --heather-deep: #5b4361;
+  --moss: #9fb39a;        /* the path line, quiet details */
+  --line: #d6dfe3;
+
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --sans: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --measure: 36rem;
+  --wide: 68rem;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--mist);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--heather); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { color: var(--heather-deep); text-decoration-thickness: 2px; }
+
+:focus-visible {
+  outline: 3px solid var(--heather);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  background: var(--ink);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  z-index: 10;
+}
+.skip-link:focus { top: 1rem; color: #fff; }
+
+/* Type scale (1.25 ratio) */
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  line-height: 1.15;
+  margin: 0 0 0.6em;
+  text-wrap: balance;
+}
+h1 { font-size: clamp(2.3rem, 5.5vw, 3.6rem); letter-spacing: -0.015em; }
+h2 { font-size: clamp(1.75rem, 3.4vw, 2.4rem); letter-spacing: -0.01em; }
+h3 { font-size: 1.35rem; font-weight: 500; }
+p { margin: 0 0 1em; max-width: var(--measure); }
+
+.wrap {
+  max-width: var(--wide);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Header */
+.site-header {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--mist);
+}
+.site-header .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+}
+.brand {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+.brand:hover { color: var(--ink); }
+.site-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+}
+.site-nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+}
+.site-nav a:hover { color: var(--ink); border-bottom-color: var(--moss); }
+.site-nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--heather); }
+
+/* Buttons */
+.button {
+  display: inline-block;
+  background: var(--heather);
+  color: #fff;
+  text-decoration: none;
+  padding: 0.8rem 1.4rem;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.button:hover { background: var(--heather-deep); color: #fff; }
+.button.quiet {
+  background: transparent;
+  color: var(--heather);
+  box-shadow: inset 0 0 0 1.5px var(--heather);
+}
+.button.quiet:hover { background: var(--heather); color: #fff; }
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+
+/* Sections */
+.section { padding: clamp(3rem, 8vw, 5.5rem) 0; }
+.section + .section { border-top: 1px solid var(--line); }
+.section.raised { background: var(--paper); }
+.lede { font-size: 1.2rem; color: var(--ink-soft); }
+
+/* Home hero: the winding path is the one signature element */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(3.5rem, 10vw, 7rem) 0 clamp(3rem, 8vw, 5rem);
+}
+.hero .wrap { position: relative; z-index: 1; }
+.hero h1 { max-width: 14ch; }
+.hero .lede { max-width: 30rem; }
+.hero-path {
+  position: absolute;
+  inset: 0 0 auto auto;
+  width: min(62vw, 46rem);
+  height: 100%;
+  pointer-events: none;
+}
+.hero-path path {
+  fill: none;
+  stroke: var(--moss);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 2400;
+  stroke-dashoffset: 2400;
+  animation: walk 3.2s ease-out 0.3s forwards;
+}
+.hero-path circle { fill: var(--heather); opacity: 0; animation: arrive 0.6s ease-out 3.2s forwards; }
+@keyframes walk { to { stroke-dashoffset: 0; } }
+@keyframes arrive { to { opacity: 1; } }
+
+@media (max-width: 700px) {
+  .hero-path { opacity: 0.45; width: 100%; }
+}
+
+.credentials {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+.credentials img { height: 3.25rem; width: auto; }
+
+/* Quote */
+.quote { margin: 0; max-width: 40rem; }
+.quote p {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3.6vw, 2.25rem);
+  line-height: 1.3;
+  max-width: none;
+  margin: 0 0 1rem;
+}
+.quote footer { color: var(--ink-soft); }
+.quote cite { font-style: italic; }
+
+/* Two-column split used across pages */
+.split {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+@media (min-width: 820px) {
+  .split { grid-template-columns: 1fr 1fr; }
+  .split.narrow-first { grid-template-columns: 2fr 3fr; }
+}
+.photo { border-radius: 0.5rem; width: 100%; object-fit: cover; }
+
+/* Approach: four short definitions, not a sequence */
+.approach {
+  display: grid;
+  gap: 1.75rem 3rem;
+  margin: 2rem 0 0;
+}
+@media (min-width: 640px) { .approach { grid-template-columns: 1fr 1fr; } }
+.approach dt {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--moss);
+}
+.approach dd { margin: 0; color: var(--ink-soft); }
+
+/* Questions on the home page */
+.questions { display: grid; gap: 2.5rem; }
+.questions h3 { margin-bottom: 0.5em; }
+
+.topics {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: 44rem;
+}
+.topics li {
+  background: var(--mist);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.25rem 0.8rem;
+  font-size: 0.95rem;
+}
+.raised .topics li { background: var(--mist); }
+
+/* Contact block */
+.contact-list { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 1.25rem; }
+.contact-list dt, .contact-list .label { color: var(--ink-soft); font-size: 0.95rem; }
+.contact-list strong { font-family: var(--serif); font-weight: 400; font-size: 1.5rem; display: block; }
+.contact-list a { text-decoration: none; }
+.contact-list a:hover { text-decoration: underline; }
+
+/* Fees */
+.fees {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+@media (min-width: 720px) { .fees { grid-template-columns: 1fr 1fr; } }
+.fee {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+}
+.fee h3 { margin-bottom: 0.25rem; }
+.fee .price {
+  font-family: var(--serif);
+  font-size: 2.75rem;
+  line-height: 1;
+  margin: 0.75rem 0 0.25rem;
+}
+.fee .price small { font-family: var(--sans); font-size: 1rem; color: var(--ink-soft); }
+.fee ul { padding-left: 1.1rem; margin: 1rem 0 1.5rem; color: var(--ink-soft); }
+.fee .button { margin-top: auto; align-self: flex-start; }
+
+.terms { margin-top: 2rem; color: var(--ink-soft); }
+.terms p { margin-bottom: 0.4rem; }
+
+.availability { width: 100%; max-width: 34rem; border-collapse: collapse; margin-top: 1rem; }
+.availability th, .availability td {
+  text-align: left;
+  padding: 0.7rem 0.75rem 0.7rem 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.availability th { font-weight: 700; white-space: nowrap; }
+.availability td span { display: block; color: var(--ink-soft); font-size: 0.95rem; }
+
+.qualities { display: grid; gap: 1.5rem 3rem; margin-top: 2rem; }
+@media (min-width: 640px) { .qualities { grid-template-columns: 1fr 1fr; } }
+.qualities h3 { margin-bottom: 0.25rem; }
+.qualities p { color: var(--ink-soft); margin: 0; }
+
+/* Page intro for inner pages */
+.page-intro { padding: clamp(3rem, 8vw, 5rem) 0 clamp(2rem, 5vw, 3rem); }
+.page-intro p { font-size: 1.2rem; color: var(--ink-soft); }
+
+/* Footer */
+.site-footer {
+  background: var(--ink);
+  color: #dfe8ea;
+  padding: 3rem 0 2rem;
+  margin-top: 0;
+}
+.site-footer a { color: #fff; }
+.footer-grid { display: grid; gap: 2rem; }
+@media (min-width: 720px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr; } }
+.site-footer .brand { color: #fff; }
+.site-footer p { margin: 0.4rem 0; }
+.site-footer ul { list-style: none; padding: 0; margin: 0; }
+.site-footer li { margin: 0.3rem 0; }
+.footer-small {
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  font-size: 0.9rem;
+  color: #b9c7ca;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-path path { animation: none; stroke-dashoffset: 0; }
+  .hero-path circle { animation: none; opacity: 1; }
+}
+
+@media print {
+  .site-header nav, .hero-path, .actions { display: none; }
+  body { background: #fff; }
+}

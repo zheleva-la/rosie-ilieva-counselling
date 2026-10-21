@@ -1,0 +1,5 @@
+# Old WordPress-only URLs → home page (Cloudflare Pages)
+# /about/, /sessions/ and /contact/ keep the same addresses as the old site.
+/wp-admin/*    /  301
+/wp-login.php  /  301
+/feed/*        /  301

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rosie-ilieva-counselling.co.uk/sitemap.xml
