@@ -1,7 +1,7 @@
 # Cloudflare Pages response headers
 /*
   X-Content-Type-Options: nosniff
-  Content-Security-Policy: frame-ancestors 'self' https://my-portfolio-cho.pages.dev https://*.my-portfolio-cho.pages.dev
+  Content-Security-Policy: frame-ancestors 'self' https://larchlightdigital.co.uk https://www.larchlightdigital.co.uk https://larchlight-digital-site.pages.dev https://*.larchlight-digital-site.pages.dev https://my-portfolio-cho.pages.dev https://*.my-portfolio-cho.pages.dev
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
 
